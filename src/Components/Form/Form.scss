@@ -1,0 +1,22 @@
+@use "../../styles/partials/keyframes" as *;
+@use "../../styles/partials/colors" as *;
+
+.form {
+  margin-top: 1rem;
+
+  &__field {
+    display: block;
+    width: 100%;
+    min-width: 180px;
+    margin: 0;
+    border: 1px solid $screen-boxes;
+    background-color: $screen-background-lighter;
+    color: $screen-text-lighter;
+    padding: 1rem;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: 1px solid $screen-boxes;
+    }
+  }
+}

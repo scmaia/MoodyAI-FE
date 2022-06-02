@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="207.379"
+      height="146.601"
+      version="1.1"
+      viewBox="0 0 54.869 38.788"
+    >
+      <g
+        strokeDasharray="none"
+        strokeMiterlimit="4"
+        transform="translate(-258.961 -54.955)"
+      >
+        <path
+          fill="none"
+          fillOpacity="0.192"
+          stroke="#000"
+          strokeLinejoin="round"
+          strokeWidth="0.529"
+          d="M296.606 55.219H313.566V93.47800000000001H296.606z"
+        ></path>
+        <path
+          fill="none"
+          stroke="#000"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeOpacity="1"
+          strokeWidth="0.265"
+          d="M311.532 60.125l-12.61-.025"
+        ></path>
+        <path
+          fill="none"
+          stroke="#000"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeOpacity="1"
+          strokeWidth="0.265"
+          d="M311.538 68.445l-12.609-.025"
+        ></path>
+        <path
+          fill="none"
+          stroke="#000"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeOpacity="1"
+          strokeWidth="0.265"
+          d="M311.387 79.667l-12.609-.025"
+        ></path>
+        <path
+          fill="none"
+          stroke="#000"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeOpacity="1"
+          strokeWidth="0.265"
+          d="M311.393 87.987l-12.609-.025"
+        ></path>
+        <path
+          fill="none"
+          stroke="#000"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeOpacity="1"
+          strokeWidth="0.529"
+          d="M296.686 74.349H259.24"
+        ></path>
+        <path
+          fill="#000"
+          fillOpacity="1"
+          stroke="none"
+          strokeLinejoin="round"
+          strokeWidth="0.529"
+          d="M258.961 71.35H273.747V77.34599999999999H258.961z"
+        ></path>
+      </g>
+   </svg>

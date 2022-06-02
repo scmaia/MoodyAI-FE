@@ -1,0 +1,26 @@
+@use "../../styles/partials/keyframes" as *;
+@use "../../styles/partials/mixins" as *;
+
+.decoration {
+  position: absolute;
+  display: none;
+  @include tablet {
+    display: block;
+  }
+
+  &__path {
+    stroke-dasharray: 250;
+    stroke-dashoffset: 250;
+    animation: draw 4s linear forwards;
+  }
+
+  &__path--small {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    animation: draw 1s linear forwards;
+  }
+
+  &__base {
+    position: absolute;
+  }
+}

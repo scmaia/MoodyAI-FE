@@ -1,0 +1,52 @@
+.response {
+  border-top: 2px dashed black;
+  position: relative;
+
+  &:first-of-type {
+    border-top: none;
+  }
+
+  &__prompt {
+    display: inline-block;
+    color: white;
+    background-color: black;
+    padding: 3px;
+    margin: 0;
+  }
+
+  &__tags {
+    display: flex;
+    gap: 1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &__mood {
+    font-size: 0.7rem;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    text-transform: uppercase;
+    border: 2px solid black;
+    padding: 3px;
+  }
+
+  &__heart {
+    stroke: black;
+    fill: transparent;
+    stroke-width: 2px;
+    width: 2rem;
+
+    &:hover {
+      fill: black;
+      cursor: pointer;
+    }
+
+    &--fave {
+      fill: black;
+    }
+  }
+
+  &__error {
+    color: red;
+  }
+}

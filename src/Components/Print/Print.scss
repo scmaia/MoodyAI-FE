@@ -1,0 +1,117 @@
+@use "../../styles/partials/keyframes" as *;
+@use "../../styles/partials/mixins" as *;
+
+.print {
+  &__filters {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__filter {
+    display: inline;
+    margin-right: 0.9rem;
+  }
+
+  &__filter-label {
+    display: inline-block;
+    background-color: transparent;
+    border: 2px solid rgba(103, 103, 103, 0.4);
+    color: #626161;
+    border-radius: 15px;
+    white-space: nowrap;
+    margin: 3px 0px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+
+    &::before {
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 2px 6px 2px 2px;
+      content: "\271B";
+    }
+  }
+
+  &__filter-input {
+    display: absolute;
+    position: absolute;
+    opacity: 0;
+
+    &:checked + .print__filter-label {
+      border: 2px solid #8c9d9c;
+      background-color: #547a6a;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    &:checked + .print__filter-label::before {
+      content: "\2713";
+    }
+
+    &--fave {
+      &:checked + .print__filter-label {
+        border: 2px solid #9d908c;
+        background-color: #b05b44;
+      }
+
+      &:checked + .print__filter-label::before {
+        content: "\2665";
+      }
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0 2.5rem 0;
+    @include tablet {
+      flex-direction: row;
+      margin: 2.5rem 0;
+    }
+  }
+
+  &__favorite {
+    @include tablet {
+      border-left: 2px solid black;
+      padding-left: 0.8rem;
+    }
+  }
+
+  &__responses {
+    font-family: "Courier New", Courier, monospace;
+    border-top: 2px solid black;
+    position: relative;
+    padding-top: 2rem;
+  }
+
+  &__typewriter {
+    position: absolute;
+    height: 4rem;
+    top: -2rem;
+    pointer-events: none;
+    @include tablet {
+      height: 7rem;
+      top: -3.5rem;
+    }
+
+    &--right {
+      left: calc(100% - 1rem);
+      @include tablet {
+        left: calc(100% - 3.5rem);
+      }
+    }
+
+    &--left {
+      transform: rotate(180deg);
+      left: -4.5rem;
+      @include tablet {
+        left: -6.5rem;
+      }
+    }
+  }
+}

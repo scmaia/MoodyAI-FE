@@ -1,0 +1,52 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/colors" as *;
+
+.main {
+  background-color: papayawhip;
+  padding-bottom: 4rem;
+  min-height: 100vh;
+
+  &__section {
+    width: 80%;
+    max-width: 50rem;
+    min-width: 20rem;
+    margin: auto;
+    padding: 2rem;
+    box-sizing: border-box;
+    border: 2px solid black;
+    @include tablet {
+      width: 60%;
+    }
+  }
+
+  &__inputs {
+    margin-bottom: 2rem;
+  }
+
+  &__screen {
+    padding: 2rem;
+    border: 3px inset greenyellow;
+    background-color: $screen-background;
+    color: $screen-text;
+    border-radius: 2rem;
+    min-height: 278px;
+    font-family: monospace;
+  }
+
+  &__outputs {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  &__jagged {
+    height: 1rem;
+    width: 80%;
+    max-width: 50rem;
+    min-width: 20rem;
+    background-size: 1.5rem;
+    margin: auto;
+    @include tablet {
+      width: 60%;
+    }
+  }
+}

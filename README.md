@@ -79,4 +79,3 @@ If I had more time to work on this project, I would:
 ## Acknowledgements
 
 - [OpenAI](https://beta.openai.com/)
-# MoodyAI-FE
