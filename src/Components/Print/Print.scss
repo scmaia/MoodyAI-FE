@@ -1,5 +1,6 @@
 @use "../../styles/partials/keyframes" as *;
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/colors" as *;
 
 .print {
   &__filters {
@@ -50,7 +51,24 @@
     }
 
     &:checked + .print__filter-label::before {
-      content: "\2713";
+      // content: "\2713";
+      content: "";
+      height: 0.2rem;
+      min-height: 0.2rem;
+      max-height: 0.2rem;
+      width: 0.05rem;
+      min-width: 0.05rem;
+      max-width: 0.05rem;
+      margin-right: 0.5rem;
+      border: 1px solid rgb(124, 17, 17);
+      border-radius: 50%;
+      box-shadow:
+        0 0 .2rem rgb(185, 11, 11),
+        inset 0 0 .2rem rgb(185, 11, 11),
+        0 0 0.4rem $neon-center-color,
+        inset 0 0 0.4rem $neon-center-color,
+        0 0 0.8rem $neon-center-color,
+        inset 0 0 0.8rem $neon-center-color;
     }
 
     &--fave {
@@ -61,6 +79,8 @@
 
       &:checked + .print__filter-label::before {
         content: "\2665";
+        box-shadow: none;
+        border: none;
       }
     }
   }

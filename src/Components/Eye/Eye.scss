@@ -1,0 +1,40 @@
+@use "../../styles/partials/colors" as *;
+
+.eye {
+  position: relative;
+  height: 2.2rem;
+  width: 2.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  // border: 2px solid #fff;
+  // box-shadow:
+  //   0 0 .5rem #fff,
+  //   inset 0 0 .5rem #fff,
+  //   0 0 1rem $neon-border-color,
+  //   inset 0 0 1rem $neon-border-color,
+  //   // 0 0 2rem $neon-border-color,
+  //   inset 0 0 2rem $neon-border-color;
+  border: 2px inset greenyellow;
+  box-shadow: 0 0 1rem $neon-border-color, inset 0 0 1rem rgb(0, 255, 8);
+  background-color: $screen-background;
+
+  &__ball {
+    position: absolute;
+    top: 50%;
+    left: 0.7rem;
+    transform: translate(-50%, -50%);
+    height: 1rem;
+    width: 1rem;
+    border: 1px solid rgb(185, 11, 11);
+    border-radius: 50%;
+    box-shadow:
+      0 0 .5rem rgb(62, 6, 6),
+      inset 0 0 .5rem rgb(62, 6, 6),
+      0 0 0.75rem $neon-center-color,
+      inset 0 0 1rem $neon-center-color,
+      0 0 1rem $neon-center-color,
+      inset 0 0 2rem $neon-center-color;
+  }
+}

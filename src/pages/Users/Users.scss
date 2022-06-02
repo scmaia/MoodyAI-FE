@@ -1,0 +1,122 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+@use '../../styles/partials/globals' as *;
+
+.login, .signup {
+    max-width: 30rem;
+    min-height: calc(100vh - 7rem);
+    margin: auto;
+    margin-top: 3rem;
+    padding: 0 3rem;
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 3rem;
+    }
+
+    &__field {
+        margin-bottom: 1rem;
+        height: 3rem;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        border: 1.5px solid black;
+        border-radius: 0;
+        box-sizing: border-box;
+        background-color: black;
+        color: white;
+        font-family: monospace;
+    }
+
+    &__label {
+      font-family: monospace;
+      border: 1px solid black;
+      padding: 0.8rem 0.8rem 0 0.8rem;
+      border-radius: 1rem 1rem 0 0;
+      width: max-content;
+      margin-left: auto;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    &__error {
+        color: darkred;
+        background-color: lightpink;
+        padding: 1.5rem;
+        border: 2px solid darkred;
+        border-radius: 5px;
+        margin-top: 2rem;
+    }
+
+    &__success {
+        color: darkgreen;
+        // background-color: lightgreen;
+        padding: 1.5rem;
+        border: 2px solid darkgreen;
+        // border-radius: 5px;
+        margin-top: 2rem;
+        font-family: monospace;
+    }
+
+    &__footnote {
+        text-align: center;
+        margin-top: 4rem;
+
+        & a {
+            text-decoration: underline;
+        }
+    }
+}
+
+// .signup {
+//   max-width: 30rem;
+//   min-height: 80vh;
+//   margin: 3rem auto;
+//   padding: 1rem 3rem;
+
+//   &__form {
+//       display: flex;
+//       flex-direction: column;
+//       margin-top: 3rem;
+//   }
+
+//   &__field {
+//       margin-bottom: 1rem;
+//       height: 3rem;
+//       font-size: 1rem;
+//       padding: 0.5rem 1rem;
+//       border: 1.5px solid black;
+//       border-radius: 0;
+//       box-sizing: border-box;
+//   }
+
+//   &__buttons {
+//       display: flex;
+//       justify-content: flex-end;
+//       gap: 2rem;
+//       margin-top: 2rem;
+//   }
+
+//   &__success {
+//       color: darkgreen;
+//       background-color: lightgreen;
+//       padding: 1.5rem;
+//       border: 2px solid darkgreen;
+//       border-radius: 5px;
+//       margin-top: 2rem;
+//   }
+
+//   &__error {
+//       color: darkred;
+//       background-color: lightpink;
+//       padding: 1.5rem;
+//       border: 2px solid darkred;
+//       border-radius: 5px;
+//       margin-top: 2rem;
+//   }
+// }

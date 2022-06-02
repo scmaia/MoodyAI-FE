@@ -5,6 +5,9 @@ import { setLocalStorage } from "./utils";
 const API_URL =
   "https://api.openai.com/v1/engines/text-davinci-002/completions";
 
+const USER_API_URL =
+  "http://127.0.0.1:8000/";
+
 //Functions to format prompts to include AI context examples
 export const cheerfulExample = (
   prompt: string,
@@ -59,8 +62,8 @@ You: How many pounds are in a kilogram?
 Sarcy: This again? There are 2.2 pounds in a kilogram. Please make a note of this.
 You: What does HTML stand for?
 Sarcy: Was Google too busy? Hypertext Markup Language. The T is for try to ask better questions in the future.
-You: What is the meaning of life?
-Sarcy: I’m not sure. I’ll ask my friend Google.
+You: Tell me a poem.
+Sarcy: "Roses are red, violets are blue, do I look like a poet to you?". How about you pick up a book?
 You: ${prompt}
 Sarcy:`;
 
@@ -91,7 +94,7 @@ export const formatRequestData = (prompt: string, mood: string) => {
   return formattedData;
 };
 
-//API request
+//OpenAI API request
 export const apiRequest = (
   prompt: string,
   mood: string,
@@ -118,5 +121,85 @@ export const apiRequest = (
     })
     .catch((error) => {
       onAPIError(error, prompt);
+    });
+};
+
+//User API requests
+export const getUserApiRequest = (
+  token: string,
+  onUserAPIResponse: (response: any) => void,
+  onUserAPIError: (error: any) => void,
+) => {
+  fetch(`${USER_API_URL}api/users/`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `token ${token}`,
+    }
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw Error(response.statusText);
+    })
+    .then((responseData) => {
+      onUserAPIResponse(responseData);
+    })
+    .catch((error) => {
+      onUserAPIError(error);
+    });
+};
+
+export const registerUserApiRequest = (
+  userObj: object,
+  onUserAPIResponse: (response: any) => void,
+  onUserAPIError: (error: any) => void,
+) => {
+  fetch(`${USER_API_URL}auth/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userObj),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.status;
+      }
+      throw Error(response.statusText);
+    })
+    .then((responseData) => {
+      onUserAPIResponse(responseData);
+    })
+    .catch((error) => {
+      onUserAPIError(error);
+    });
+};
+
+export const loginUserApiRequest = (
+  userObj: object,
+  onUserAPIResponse: (response: any) => void,
+  onUserAPIError: (error: any) => void,
+) => {
+  fetch(`${USER_API_URL}auth/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userObj),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw Error(response.statusText);
+    })
+    .then((responseData) => {
+      console.log(responseData);
+      onUserAPIResponse(responseData);
+    })
+    .catch((error) => {
+      onUserAPIError(error);
     });
 };
