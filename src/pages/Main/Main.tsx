@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../contexts/user-context";
-import { sendPromptApiRequest, sendPromptAnonApiRequest, getUserResponsesApiRequest } from "../../utils/apiUtils";
+import { api } from "../../utils/apiUtils";
 import "./Main.scss";
 import Decoration from "../../Components/Decoration/Decoration";
 import Header from "../../Components/Header/Header";
 import MoodSelector from "../../Components/MoodSelector/MoodSelector";
 import Form from "../../Components/Form/Form";
-import Print from "../../Components/Print/Print";
+import Print from "../../containers/Print/Print";
 import jagged from "../../assets/imgs/jagged.svg";
 import { v4 as uuidv4 } from "uuid";
 
@@ -35,26 +35,37 @@ const Main: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const user = useContext(UserContext);
+  let token:any;
 
   useEffect(() => {
     if (user.userId) {
       setUserID(user.userId);
-      let token = sessionStorage.getItem('authToken');
+      token = sessionStorage.getItem('authToken');
       if (token) {
-        getUserResponsesApiRequest(token, user.userId, onUserAPIResponse, onUserAPIError)
+        api.getResponsesList(token, user.userId, onGetListResponse, onGetListError)
       }
     }
   }, [user]);
 
-  const onUserAPIResponse = (responses: any) => {
+  const handleRequest = (prompt: string) => {
+    setLoading(true);
+    let promptObj ={prompt: prompt, mood: mood}
+    if (token) {
+      api.getResponse(token, userID, promptObj, onGetResponseResponse, onGetResponseError)
+    } else {
+      api.getResponseAnon(promptObj, onGetResponseResponse, onGetResponseError)
+    }
+  };
+
+  const onGetListResponse = (responses: any) => {
     setResponses(responses);
   }
 
-  const onUserAPIError = (error: any) => {
+  const onGetListError = (error: any) => {
     console.error(error);
   }
 
-  const onAPIResponse = (apiResponse: any) => {
+  const onGetResponseResponse = (apiResponse: any) => {
     const newResponses = [
       {
         prompt: apiResponse.prompt,
@@ -73,8 +84,8 @@ const Main: React.FC = () => {
     });
   };
 
-  const onAPIError = (error: any) => {
-    const ephemeralResponses = [
+  const onGetResponseError = (error: any) => {
+    const tempResponses = [
       {
         prompt: "Request failed",
         response:
@@ -87,24 +98,11 @@ const Main: React.FC = () => {
       },
       ...responses,
     ];
-    setResponses(ephemeralResponses);
+    setResponses(tempResponses);
     setLoading(false);
     document.getElementById("responses")?.scrollIntoView({
       behavior: "smooth",
     });
-  };
-
-  const handleRequest = (prompt: string) => {
-    setLoading(true);
-    let token = sessionStorage.getItem('authToken')
-    let promptObj ={prompt: prompt, mood: mood}
-    if (token) {
-      sendPromptApiRequest(token, userID, promptObj, onAPIResponse, onAPIError)
-    } else {
-      sendPromptAnonApiRequest(promptObj, onAPIResponse, onAPIError)
-    }
-    
-    // externalApiRequest(prompt, mood, onExternalAPIResponse, onExternalAPIError);
   };
 
   return (

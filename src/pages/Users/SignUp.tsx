@@ -1,5 +1,5 @@
 import './Users.scss';
-import { registerUserApiRequest } from '../../utils/apiUtils';
+import { api } from '../../utils/apiUtils';
 import Button from '../../Components/Button/Button';
 import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
@@ -56,7 +56,7 @@ const SignUp: React.FC = () => {
         }
 
         const newUser = {username, password, email}
-        registerUserApiRequest(newUser, onUserAPIResponse, onUserAPIError)
+        api.registerUser(newUser, onUserAPIResponse, onUserAPIError)
     }
 
     const handleCancel = () => {

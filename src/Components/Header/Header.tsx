@@ -15,7 +15,7 @@ const Header: React.FC = () => {
         </p>
         <p>
           Visit{" "}
-          <a href="https://github.com/scmaia/openai-challenge">GitHub Repo</a>
+          <a href="https://github.com/scmaia/MoodyAI-FE">GitHub Repo</a>
         </p>
       </div>
     </header>

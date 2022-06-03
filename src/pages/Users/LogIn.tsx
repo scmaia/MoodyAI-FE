@@ -1,5 +1,5 @@
 import './Users.scss';
-import { loginUserApiRequest } from '../../utils/apiUtils';
+import { api } from '../../utils/apiUtils';
 import Button from '../../Components/Button/Button';
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
@@ -34,7 +34,7 @@ const LogIn: React.FC<ILoginProps> = ({ setUserLoggedIn }) => {
     const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         const user = {username, password};
-        loginUserApiRequest(user, onUserAPIResponse, onUserAPIError)
+        api.loginUser(user, onUserAPIResponse, onUserAPIError)
     }
 
     const handleCancel = () => {

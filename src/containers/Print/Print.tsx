@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { setLocalStorage } from "../../utils/utils";
 import { Moods, AIResponse } from "../../pages/Main/Main";
-import { updateResponseApiRequest } from "../../utils/apiUtils";
+import { api } from "../../utils/apiUtils";
 import "./Print.scss";
-import ResponseCard from "../ResponseCard/ResponseCard";
+import ResponseCard from "../../Components/ResponseCard/ResponseCard";
 import typewritter from "../../assets/imgs/typewritter.png";
 
 interface IPrintProps {
@@ -62,12 +61,11 @@ const Print: React.FC<IPrintProps> = ({ responses, setResponses }) => {
   const toggleFavorite = (pk: string) => {
     const foundIndex = responses.findIndex((response) => response.pk === pk);
     const updatedResponses = [...responses];
-    updatedResponses[foundIndex].favorite =
-      !updatedResponses[foundIndex].favorite;
+    updatedResponses[foundIndex].favorite = !updatedResponses[foundIndex].favorite;
     setResponses(updatedResponses);
     let token = sessionStorage.getItem('authToken')
     if (token) {
-      updateResponseApiRequest(token, responses[foundIndex].pk, updatedResponses[foundIndex].favorite)
+      api.updateResponse(token, responses[foundIndex].pk, updatedResponses[foundIndex].favorite)
     }
   };
 
@@ -102,7 +100,7 @@ const Print: React.FC<IPrintProps> = ({ responses, setResponses }) => {
             checked={favoriteFilter}
             onChange={handleFavoriteCheckbox}
           />
-          <label htmlFor="favorite" className="print__filter-label">
+          <label htmlFor="favorite" className="print__filter-label print__filter-label--fave">
             Favorites Only
           </label>
         </div>

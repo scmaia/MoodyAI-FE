@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContext } from "./contexts/user-context";
-import { getUserApiRequest } from "./utils/apiUtils";
+import { api } from "./utils/apiUtils";
 import "./App.scss";
 import Nav from "./Components/Nav/Nav";
 import Main from "./pages/Main/Main";
@@ -15,7 +15,10 @@ const App: React.FC = () => {
   useEffect(() => {
     let token = sessionStorage.getItem('authToken');
     if (token) {
-      getUserApiRequest(token, onUserAPIResponse, onUserAPIError);
+      api.getUser(token, onUserAPIResponse, onUserAPIError);
+    } else {
+      // server is pinged in case it is asleep due to inactivity
+      api.ping();
     }
   }, [isLoggedIn]);
 
