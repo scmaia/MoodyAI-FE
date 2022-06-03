@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../../contexts/user-context";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Nav.scss";
 import Eye from '../Eye/Eye'
 

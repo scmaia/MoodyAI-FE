@@ -35,12 +35,11 @@ const Main: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const user = useContext(UserContext);
-  let token:any;
-
+  
   useEffect(() => {
     if (user.userId) {
       setUserID(user.userId);
-      token = sessionStorage.getItem('authToken');
+      let token = sessionStorage.getItem('authToken');
       if (token) {
         api.getResponsesList(token, user.userId, onGetListResponse, onGetListError)
       }
@@ -50,6 +49,7 @@ const Main: React.FC = () => {
   const handleRequest = (prompt: string) => {
     setLoading(true);
     let promptObj ={prompt: prompt, mood: mood}
+    let token = sessionStorage.getItem('authToken');
     if (token) {
       api.getResponse(token, userID, promptObj, onGetResponseResponse, onGetResponseError)
     } else {

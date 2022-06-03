@@ -30,6 +30,7 @@ const Print: React.FC<IPrintProps> = ({ responses, setResponses }) => {
   useEffect(() => {
     setFilteredResponses([...responses]);
     resetFilters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [responses]);
 
   useEffect(() => {
