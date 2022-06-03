@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { apiRequest } from "../../utils/apiUtils";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../contexts/user-context";
+import { sendPromptApiRequest, sendPromptAnonApiRequest, getUserResponsesApiRequest } from "../../utils/apiUtils";
 import "./Main.scss";
 import Decoration from "../../Components/Decoration/Decoration";
 import Header from "../../Components/Header/Header";
@@ -8,7 +9,6 @@ import Form from "../../Components/Form/Form";
 import Print from "../../Components/Print/Print";
 import jagged from "../../assets/imgs/jagged.svg";
 import { v4 as uuidv4 } from "uuid";
-import { setLocalStorage } from "../../utils/utils";
 
 export enum Moods {
   Neutral = "neutral",
@@ -23,35 +23,49 @@ export type AIResponse = {
   response: string;
   error?: string;
   mood: string;
-  timestamp: number;
+  created_at: number;
   favorite: boolean;
-  id: string;
+  pk: string;
 };
 
 const Main: React.FC = () => {
+  const [userID, setUserID] = useState('');
   const [responses, setResponses] = useState<AIResponse[]>([]);
   const [mood, setMood] = useState(Moods.Neutral);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (localStorage?.AIresponses) {
-      setResponses(JSON.parse(localStorage.AIresponses));
-    }
-  }, []);
+  const user = useContext(UserContext);
 
-  const onAPIResponse = (apiResponse: any, prompt: string) => {
+  useEffect(() => {
+    if (user.userId) {
+      setUserID(user.userId);
+      let token = sessionStorage.getItem('authToken');
+      if (token) {
+        getUserResponsesApiRequest(token, user.userId, onUserAPIResponse, onUserAPIError)
+      }
+    }
+  }, [user]);
+
+  const onUserAPIResponse = (responses: any) => {
+    setResponses(responses);
+  }
+
+  const onUserAPIError = (error: any) => {
+    console.error(error);
+  }
+
+  const onAPIResponse = (apiResponse: any) => {
     const newResponses = [
       {
-        prompt: prompt,
-        response: apiResponse.choices[0].text as string,
-        mood: mood,
+        prompt: apiResponse.prompt,
+        response: apiResponse.response,
+        mood: apiResponse.mood,
         favorite: false,
-        timestamp: Date.now(),
-        id: uuidv4(),
+        created_at: apiResponse.created_at || Date.now(),
+        pk: apiResponse.pk ? apiResponse.pk : uuidv4(),
       },
       ...responses,
     ];
-    setLocalStorage("AIresponses", JSON.stringify(newResponses));
     setResponses(newResponses);
     setLoading(false);
     document.getElementById("responses")?.scrollIntoView({
@@ -59,17 +73,17 @@ const Main: React.FC = () => {
     });
   };
 
-  const onAPIError = (error: any, prompt: string) => {
+  const onAPIError = (error: any) => {
     const ephemeralResponses = [
       {
-        prompt: prompt,
+        prompt: "Request failed",
         response:
-          "Error message: Something went wrong. Please try again. Page reload will erease this record.",
+          "Error message: Something went wrong. Please try again.",
         error: String(error),
         mood: mood,
         favorite: false,
-        timestamp: Date.now(),
-        id: uuidv4(),
+        created_at: Date.now(),
+        pk: uuidv4(),
       },
       ...responses,
     ];
@@ -82,7 +96,15 @@ const Main: React.FC = () => {
 
   const handleRequest = (prompt: string) => {
     setLoading(true);
-    apiRequest(prompt, mood, onAPIResponse, onAPIError);
+    let token = sessionStorage.getItem('authToken')
+    let promptObj ={prompt: prompt, mood: mood}
+    if (token) {
+      sendPromptApiRequest(token, userID, promptObj, onAPIResponse, onAPIError)
+    } else {
+      sendPromptAnonApiRequest(promptObj, onAPIResponse, onAPIError)
+    }
+    
+    // externalApiRequest(prompt, mood, onExternalAPIResponse, onExternalAPIError);
   };
 
   return (

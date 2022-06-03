@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { setLocalStorage } from "../../utils/utils";
 import { Moods, AIResponse } from "../../pages/Main/Main";
+import { updateResponseApiRequest } from "../../utils/apiUtils";
 import "./Print.scss";
 import ResponseCard from "../ResponseCard/ResponseCard";
 import typewritter from "../../assets/imgs/typewritter.png";
@@ -58,13 +59,17 @@ const Print: React.FC<IPrintProps> = ({ responses, setResponses }) => {
     setFavoriteFilter(!favoriteFilter);
   };
 
-  const toggleFavorite = (id: string) => {
-    const foundIndex = responses.findIndex((response) => response.id === id);
+  const toggleFavorite = (pk: string) => {
+    const foundIndex = responses.findIndex((response) => response.pk === pk);
     const updatedResponses = [...responses];
     updatedResponses[foundIndex].favorite =
       !updatedResponses[foundIndex].favorite;
     setResponses(updatedResponses);
     setLocalStorage("AIresponses", JSON.stringify(updatedResponses));
+    let token = sessionStorage.getItem('authToken')
+    if (token) {
+      updateResponseApiRequest(token, responses[foundIndex].pk, !responses[foundIndex].favorite)
+    }
   };
 
   return (
@@ -106,14 +111,14 @@ const Print: React.FC<IPrintProps> = ({ responses, setResponses }) => {
       <div className="print__responses" id="responses">
         {filteredResponses.map((response) => (
           <ResponseCard
-            key={response.id}
+            key={response.pk}
             prompt={response.prompt}
             response={response.response}
             error={response.error}
             mood={response.mood}
             favorite={response.favorite}
-            timestamp={response.timestamp}
-            id={response.id}
+            created_at={response.created_at}
+            pk={response.pk}
             toggleFavorite={toggleFavorite}
           />
         ))}

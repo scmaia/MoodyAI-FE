@@ -56,8 +56,6 @@ const SignUp: React.FC = () => {
         }
 
         const newUser = {username, password, email}
-        console.log(newUser)
-
         registerUserApiRequest(newUser, onUserAPIResponse, onUserAPIError)
     }
 

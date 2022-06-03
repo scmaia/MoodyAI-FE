@@ -1,6 +1,6 @@
 import "./ResponseCard.scss";
 
-interface IRespondeCardProps {
+interface IResponseCardProps {
   //prompt value from response object
   prompt: string;
   //response value from response object
@@ -12,25 +12,25 @@ interface IRespondeCardProps {
   //favorite value from response object
   favorite: boolean;
   //timestamp value from response object
-  timestamp: number;
+  created_at: number;
   //id value from response object
-  id: string;
+  pk: string;
   //function to update favorite value in response object. Accepts id value of object to update.
   toggleFavorite: (id: string) => void;
 }
 
-const ResponseCard: React.FC<IRespondeCardProps> = ({
+const ResponseCard: React.FC<IResponseCardProps> = ({
   prompt,
   response,
   error,
   mood,
   favorite,
-  timestamp,
-  id,
+  created_at,
+  pk,
   toggleFavorite,
 }) => {
   const handleClick = () => {
-    toggleFavorite(id);
+    toggleFavorite(pk);
   };
   const faveIcon = (
     <svg
@@ -46,7 +46,7 @@ const ResponseCard: React.FC<IRespondeCardProps> = ({
 
   return (
     <div className="response">
-      <p>{new Date(timestamp).toLocaleString()}</p>
+      <p>{new Date(created_at).toLocaleString()}</p>
       <p className="response__prompt">{prompt}</p>
       <p>
         {">>> "}

@@ -20,7 +20,6 @@ const App: React.FC = () => {
   }, [isLoggedIn]);
 
   const onUserAPIResponse = (apiResponse: any) => {
-    console.log(apiResponse);
     setUser({ 
       username: apiResponse.username,
       userId: apiResponse.id,
