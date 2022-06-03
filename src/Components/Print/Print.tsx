@@ -65,10 +65,9 @@ const Print: React.FC<IPrintProps> = ({ responses, setResponses }) => {
     updatedResponses[foundIndex].favorite =
       !updatedResponses[foundIndex].favorite;
     setResponses(updatedResponses);
-    setLocalStorage("AIresponses", JSON.stringify(updatedResponses));
     let token = sessionStorage.getItem('authToken')
     if (token) {
-      updateResponseApiRequest(token, responses[foundIndex].pk, !responses[foundIndex].favorite)
+      updateResponseApiRequest(token, responses[foundIndex].pk, updatedResponses[foundIndex].favorite)
     }
   };
 
