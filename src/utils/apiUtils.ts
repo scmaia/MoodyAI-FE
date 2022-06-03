@@ -1,4 +1,5 @@
-const USER_API_URL = "http://127.0.0.1:8000/";
+// const USER_API_URL = "http://127.0.0.1:8000/";
+const USER_API_URL = "https://moodyai-api.herokuapp.com/";
 
 export const api = {
 
